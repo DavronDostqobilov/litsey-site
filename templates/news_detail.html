@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ news.title }} — SamDAQI Akademik Litseyi{% endblock %}
+
+{% block content %}
+<div class="container section-padding">
+  <div style="max-width: 900px; margin: 0 auto; background: #ffffff; padding: 40px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+    
+    <div style="margin-bottom: 20px;">
+      {% if news.category %}
+        <span class="news-badge" style="position: static; display: inline-block; margin-bottom: 12px;">{{ news.category.name }}</span>
+      {% endif %}
+      <h1 style="font-size: 30px; color: var(--secondary-color); margin-bottom: 14px;">{{ news.title }}</h1>
+      <div style="font-size: 13.5px; color: var(--text-muted); display: flex; gap: 20px;">
+        <span>📅 {{ news.created_at|date:"d F Y, H:i" }}</span>
+        <span>👁️ {{ news.views_count }} marta ko'rildi</span>
+      </div>
+    </div>
+
+    {% if news.image %}
+      <div style="margin-bottom: 30px; border-radius: 12px; overflow: hidden; max-height: 450px;">
+        <img src="{{ news.image.url }}" alt="{{ news.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+    {% endif %}
+
+    <div style="font-size: 16px; line-height: 1.8; color: #334155; margin-bottom: 40px;">
+      <p style="font-weight: 600; font-size: 18px; margin-bottom: 20px; color: #1e293b; background: var(--bg-light); padding: 16px; border-left: 4px solid var(--primary-color); border-radius: 4px;">
+        {{ news.summary }}
+      </p>
+      {{ news.content|linebreaks }}
+    </div>
+
+    <hr style="border: none; border-top: 1px solid var(--border-color); margin-bottom: 30px;">
+
+    <!-- Related News -->
+    {% if related_news %}
+      <h3 style="font-size: 20px; margin-bottom: 20px; color: var(--secondary-color);">Shuningdek o'qing</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+        {% for item in related_news %}
+          <div style="background: var(--bg-light); padding: 16px; border-radius: 8px;">
+            <a href="{% url 'news_detail' slug=item.slug %}" style="font-weight: 600; font-size: 14px; color: var(--secondary-color); display: block; margin-bottom: 8px;">
+              {{ item.title }}
+            </a>
+            <span style="font-size: 12px; color: var(--text-muted);">{{ item.created_at|date:"d.m.Y" }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

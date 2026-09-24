@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Yangiliklar — SamDAQI Akademik Litseyi{% endblock %}
+
+{% block content %}
+<div class="container section-padding">
+  <div style="margin-bottom: 30px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px;">
+    <div>
+      <h1 class="section-title">Yangiliklar va E'lonlar</h1>
+      <p style="color: var(--text-muted); margin-top: 6px;">Litseyimizdagi barcha rasmiy yangiliklar va e'lonlar arxivi</p>
+    </div>
+
+    <!-- Search Form -->
+    <form action="{% url 'news_list' %}" method="get" style="display: flex; gap: 10px; min-width: 300px;">
+      <input type="text" name="q" value="{{ search_query }}" placeholder="Yangiliklarni qidirish..." class="form-control">
+      <button type="submit" class="btn-primary" style="padding: 10px 20px;">Qidirish</button>
+    </form>
+  </div>
+
+  <!-- Categories Filter -->
+  {% if categories %}
+    <div style="display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap;">
+      <a href="{% url 'news_list' %}" class="btn-more" style="{% if not selected_category %}background: var(--primary-color); color: #fff;{% endif %}">
+        Barchasi
+      </a>
+      {% for cat in categories %}
+        <a href="{% url 'news_list' %}?category={{ cat.slug }}" class="btn-more" style="{% if selected_category == cat.slug %}background: var(--primary-color); color: #fff;{% endif %}">
+          {{ cat.name }}
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- News Grid -->
+  <div class="news-grid">
+    {% for news in news_list %}
+      <div class="news-card">
+        <div class="news-image-box">
+          {% if news.image %}
+            <img src="{{ news.image.url }}" alt="{{ news.title }}">
+          {% else %}
+            <img src="{% static 'images/lyceum_building.jpg' %}" alt="{{ news.title }}">
+          {% endif %}
+          {% if news.category %}
+            <span class="news-badge">{{ news.category.name }}</span>
+          {% endif %}
+        </div>
+        <div class="news-body">
+          <div class="news-date">
+            📅 {{ news.created_at|date:"d F Y" }} | 👁️ {{ news.views_count }}
+          </div>
+          <h3 class="news-card-title">
+            <a href="{% url 'news_detail' slug=news.slug %}">{{ news.title }}</a>
+          </h3>
+          <p class="news-summary">{{ news.summary }}</p>
+          <a href="{% url 'news_detail' slug=news.slug %}" style="font-size: 13.5px; font-weight: 600; color: var(--primary-color);">Batafsil o'qish &rarr;</a>
+        </div>
+      </div>
+    {% empty %}
+      <div style="grid-column: 1 / -1; padding: 40px; background: #fff; border-radius: var(--radius); text-align: center;">
+        <p style="color: var(--text-muted); font-size: 16px;">Sizning so'rovingiz bo'yicha hech qanday yangilik topilmadi.</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

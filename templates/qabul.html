@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Qabul 2025-2026 — SamDTU Akademik Litseyi{% endblock %}
+
+{% block content %}
+<div class="qabul-page">
+
+  <!-- Page Hero -->
+  <div class="qabul-hero">
+    <div class="container">
+      <h1 class="qabul-hero-title">Qabul 2025-2026</h1>
+      <p class="qabul-hero-sub">Mirzo Ulug'bek nomidagi Samarqand Davlat Texnika Universiteti Akademik Litseyi</p>
+    </div>
+  </div>
+
+  <div class="container qabul-body">
+
+    <!-- Info Cards Row -->
+    <div class="qabul-cards-row">
+      <div class="qabul-card">
+        <div class="qabul-card-icon">📅</div>
+        <div class="qabul-card-label">Qabul muddati</div>
+        <div class="qabul-card-value">2025-yil 10-iyundan 10-iyulgacha</div>
+      </div>
+      <div class="qabul-card">
+        <div class="qabul-card-icon">👥</div>
+        <div class="qabul-card-label">Umumiy kvota</div>
+        <div class="qabul-card-value">240 o'rin</div>
+      </div>
+      <div class="qabul-card">
+        <div class="qabul-card-icon">📝</div>
+        <div class="qabul-card-label">Imtihon shakli</div>
+        <div class="qabul-card-value">2 bosqichli: yozma + DTM test</div>
+      </div>
+      <div class="qabul-card">
+        <div class="qabul-card-icon">🎓</div>
+        <div class="qabul-card-label">Talabgor</div>
+        <div class="qabul-card-value">9-sinfni bitirganlar</div>
+      </div>
+    </div>
+
+    <div class="qabul-grid">
+
+      <!-- Left Column -->
+      <div class="qabul-left">
+
+        <!-- Admission Info from DB -->
+        {% if admission_info %}
+        <div class="qabul-section-box">
+          <h2 class="qabul-section-title">{{ admission_info.title }}</h2>
+          <div class="qabul-text-content">
+            {{ admission_info.content|linebreaks }}
+          </div>
+          {% if admission_info.quota_info %}
+          <div class="qabul-quota-box">
+            <h4>📊 Kvotalar va yo'nalishlar</h4>
+            <p>{{ admission_info.quota_info }}</p>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Yo'nalishlar -->
+        <div class="qabul-section-box">
+          <h2 class="qabul-section-title">Ta'lim yo'nalishlari</h2>
+          <div class="qabul-directions">
+            <div class="qabul-direction-item">
+              <div class="direction-badge">1</div>
+              <div>
+                <strong>Aniq fanlar — Texnika yo'nalishi</strong>
+                <p>Matematika · Fizika · Ingliz tili</p>
+              </div>
+            </div>
+            <div class="qabul-direction-item">
+              <div class="direction-badge">2</div>
+              <div>
+                <strong>Aniq fanlar — Iqtisod yo'nalishi</strong>
+                <p>Matematika · Ingliz tili · Ona tili</p>
+              </div>
+            </div>
+            <div class="qabul-direction-item">
+              <div class="direction-badge">3</div>
+              <div>
+                <strong>Tabiiy fanlar yo'nalishi</strong>
+                <p>Kimyo · Biologiya · Ona tili</p>
+              </div>
+            </div>
+            <div class="qabul-direction-item">
+              <div class="direction-badge">4</div>
+              <div>
+                <strong>Xorijiy filologiya yo'nalishi</strong>
+                <p>Ingliz tili · Ona tili · Tarix</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kerakli hujjatlar -->
+        <div class="qabul-section-box">
+          <h2 class="qabul-section-title">Kerakli hujjatlar ro'yxati</h2>
+          <ul class="qabul-docs-list">
+            <li><span class="doc-num">1</span> 9-sinf shahodatnomasi (attestat) nusxasi</li>
+            <li><span class="doc-num">2</span> Tug'ilganlik haqida guvohnoma yoki ID-karta nusxasi</li>
+            <li><span class="doc-num">3</span> 3×4 o'lchamdagi 6 dona rangli fotosurat</li>
+            <li><span class="doc-num">4</span> Tibbiy ma'lumotnoma (086-U shakl)</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Bog'lanish ma'lumotlari -->
+      <div class="qabul-right">
+        <div class="qabul-contact-box">
+          <h3>📞 Qabul komissiyasi</h3>
+          <p>Savollaringiz bo'lsa, biz bilan bog'laning:</p>
+          <div class="qabul-contact-item">
+            <span>📍</span>
+            <span>Samarqand shahar, Jalol Jo'raev ko'chasi, 65-uy</span>
+          </div>
+          <div class="qabul-contact-item">
+            <span>📞</span>
+            <span>+998 66 237-12-34</span>
+          </div>
+          <div class="qabul-contact-item">
+            <span>📞</span>
+            <span>+998 66 237-56-78</span>
+          </div>
+          <div class="qabul-contact-item">
+            <span>✉️</span>
+            <span>info@samdtu-litsey.uz</span>
+          </div>
+          <div class="qabul-contact-item">
+            <span>🕗</span>
+            <span>Ish vaqti: Du–Ju, 8:00–17:00</span>
+          </div>
+        </div>
+
+        <div class="qabul-steps-box">
+          <h3>📋 Qabul bosqichlari</h3>
+          <div class="qabul-step">
+            <div class="step-circle">1</div>
+            <div>
+              <strong>Hujjat topshirish</strong>
+              <p>Qabul komissiyasiga barcha talab etilgan hujjatlarni taqdim eting</p>
+            </div>
+          </div>
+          <div class="qabul-step">
+            <div class="step-circle">2</div>
+            <div>
+              <strong>Birinchi bosqich — Yozma imtihon</strong>
+              <p>Tanlangan yo'nalish fanlari bo'yicha yozma sinov</p>
+            </div>
+          </div>
+          <div class="qabul-step">
+            <div class="step-circle">3</div>
+            <div>
+              <strong>Ikkinchi bosqich — DTM test</strong>
+              <p>Davlat Test Markazi tomonidan o'tkaziladigan test sinovi</p>
+            </div>
+          </div>
+          <div class="qabul-step">
+            <div class="step-circle">4</div>
+            <div>
+              <strong>Natijalar e'lon qilinishi</strong>
+              <p>Tanlov natijalari e'lon qilinib, qabul qilingan o'quvchilar ro'yxati chiqariladi</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

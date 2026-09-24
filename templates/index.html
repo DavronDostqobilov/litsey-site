@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Asosiy — SamDTU Akademik Litseyi{% endblock %}
+
+{% block content %}
+
+<!-- Hero Banner Slider matching full screen width layout -->
+<section class="hero-wrapper">
+  <div class="hero-layout">
+
+    <div class="hero-slider-container">
+      {% if banners %}
+      {% for banner in banners %}
+      <div class="hero-slide {% if forloop.first %}active{% endif %}">
+        <div class="hero-image-wrapper">
+          <img src="{{ banner.image.url }}" alt="{{ banner.title }}">
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content-box">
+          <h1 class="hero-title">{{ banner.title }}</h1>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <!-- Default Fallback Hero Slide matching exact text from user image -->
+      <div class="hero-slide active">
+        <div class="hero-image-wrapper">
+          <img src="{% static 'images/hero_architectural.jpg' %}" alt="SamDTU Akademik Litseyi">
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content-box">
+          <h1 class="hero-title">
+            MIRZO ULUGBEK NOMIDAGI<br>
+            SAMARQAND DAVLAT<br>
+            TEXNIKA UNIVERSITETI<br>
+            AKADEMIK LITSEYI
+          </h1>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Slider Navigation Controls -->
+    <button class="slider-btn prev" aria-label="Oldingi">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+        stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <button class="slider-btn next" aria-label="Keyingi">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+        stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+  </div>
+</section>
+
+<!-- Stats Ribbon Counter -->
+<section class="stats-ribbon" id="stats">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-number" data-target="850">0</div>
+      <div class="stat-label">O'quvchilar Soni</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" data-target="65">0</div>
+      <div class="stat-label">Malakali O'qituvchilar</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" data-target="96">0</div>
+      <div class="stat-label">OOTG Kirish Ko'rsatkich %</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" data-target="12">0</div>
+      <div class="stat-label">Zamonaviy Laboratoriyalar</div>
+    </div>
+  </div>
+</section>
+
+<!-- Latest News Section -->
+<section class="section-padding">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Yangiliklar va E'lonlar</h2>
+        <p style="color: var(--text-muted); margin-top: 6px;">Litseyimizdagi eng so'nggi yangilik va voqealar bilan
+          tanishing</p>
+      </div>
+      <a href="{% url 'news_list' %}" class="btn-more">
+        Barcha yangiliklar &rarr;
+      </a>
+    </div>
+
+    <div class="news-grid">
+      {% for news in latest_news %}
+      <div class="news-card">
+        <div class="news-image-box">
+          {% if news.image %}
+          <img src="{{ news.image.url }}" alt="{{ news.title }}">
+          {% else %}
+          <img src="{% static 'images/lyceum_building.jpg' %}" alt="{{ news.title }}">
+          {% endif %}
+          {% if news.category %}
+          <span class="news-badge">{{ news.category.name }}</span>
+          {% endif %}
+        </div>
+        <div class="news-body">
+          <div class="news-date">
+            {{ news.created_at|date:"d F Y" }} | 👁️ {{ news.views_count }}
+          </div>
+          <h3 class="news-card-title">
+            <a href="{% url 'news_detail' slug=news.slug %}">{{ news.title }}</a>
+          </h3>
+          <p class="news-summary">{{ news.summary }}</p>
+          <a href="{% url 'news_detail' slug=news.slug %}"
+            style="font-size: 13.5px; font-weight: 600; color: var(--primary-color);">Batafsil o'qish &rarr;</a>
+        </div>
+      </div>
+      {% empty %}
+      <p style="color: var(--text-muted);">Hozircha yangiliklar joylanmagan.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<!-- Leadership Section -->
+<section class="section-padding"
+  style="background: #ffffff; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Litsey Rahbariyati</h2>
+        <p style="color: var(--text-muted); margin-top: 6px;">Litseyimizni samarali boshqarayotgan rahbarlar va
+          mutaxassislar</p>
+      </div>
+      <a href="{% url 'leadership' %}" class="btn-more">Barcha rahbariyat &rarr;</a>
+    </div>
+
+    <div class="leadership-grid">
+      {% for leader in leadership_members %}
+      <div class="leader-card">
+        {% if leader.photo %}
+        <img src="{{ leader.photo.url }}" alt="{{ leader.full_name }}" class="leader-photo">
+        {% else %}
+        <img src="{% static 'images/logo.png' %}" alt="{{ leader.full_name }}" class="leader-photo">
+        {% endif %}
+        <h3 class="leader-name">{{ leader.full_name }}</h3>
+        <div class="leader-position">{{ leader.position }}</div>
+        <div class="leader-details">
+          <p>📞 {{ leader.phone }}</p>
+          <p>🕒 {{ leader.reception_hours }}</p>
+        </div>
+      </div>
+      {% empty %}
+      <p style="color: var(--text-muted);">Rahbariyat a'zolari kiritilmagan.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

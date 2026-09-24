@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}SamDTU Akademik Litseyi{% endblock %}</title>
+  <meta name="description"
+    content="Mirzo Ulug'bek nomidagi Samarqand Davlat Texnika Universiteti Akademik Litseyi rasmiy sayti">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="icon" href="{% static 'images/logo.jpg' %}" type="image/jpg">
+  {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+
+  <!-- Top Header Navigation -->
+  <header class="top-header">
+    <div class="header-container">
+      <a href="{% url 'home' %}" class="logo-brand">
+        <img src="{% static 'images/logo.jpg' %}" alt="SamDTU Akademik Litseyi Logo">
+        <div class="logo-brand-text">
+          <span class="top-sub">SAMARQAND DAVLAT TEXNIKA UNIVERSITETI</span>
+          <span class="main-name">AKADEMIK LITSEYI</span>
+        </div>
+      </a>
+
+      <button class="mobile-toggle" aria-label="Menyu">☰</button>
+
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="{% url 'home' %}"
+            class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+            Asosiy
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            Litsey va ta'lim
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'leadership' %}" class="dropdown-link">Rahbariyat</a></li>
+            <li><a href="{% url 'departments' %}" class="dropdown-link">Kafedralar va Yo'nalishlar</a></li>
+            <li><a href="{% url 'admission' %}" class="dropdown-link">Litsey Tarixi va Nizomi</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            O'quvchilar uchun
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'olympiad' %}" class="dropdown-link">Dars va Imtihon jadvali</a></li>
+            <li><a href="{% url 'olympiad' %}" class="dropdown-link">To'garaklar va Klubatlar</a></li>
+            <li><a href="{% url 'olympiad' %}" class="dropdown-link">Elektron Kutubxona</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'news_list' %}"
+            class="nav-link {% if request.resolver_match.url_name == 'news_list' or request.resolver_match.url_name == 'news_detail' %}active{% endif %}">
+            Yangiliklar
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            Ma'lumotlar
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'home' %}#stats" class="dropdown-link">Statistika va Yutuqlar</a></li>
+            <li><a href="{% url 'contact' %}" class="dropdown-link">Ochiq ma'lumotlar</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'state_symbols' %}"
+            class="nav-link {% if request.resolver_match.url_name == 'state_symbols' %}active{% endif %}">
+            Davlat ramzlari
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'state_symbols_detail' symbol_type='flag' %}" class="dropdown-link">O'zbekiston
+                Bayrog'i</a></li>
+            <li><a href="{% url 'state_symbols_detail' symbol_type='emblem' %}" class="dropdown-link">O'zbekiston
+                Gerbi</a></li>
+            <li><a href="{% url 'state_symbols_detail' symbol_type='anthem' %}" class="dropdown-link">O'zbekiston
+                Madhiyasi</a></li>
+            <li><a href="{% url 'state_symbols_detail' symbol_type='constitution' %}"
+                class="dropdown-link">Konstitutsiya</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'qabul' %}"
+            class="nav-link {% if request.resolver_match.url_name == 'qabul' %}active{% endif %}">
+            Qabul 2026-2027
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'olympiad' %}"
+            class="nav-link {% if request.resolver_match.url_name == 'olympiad' %}active{% endif %}">
+            Fan olimpiadalari
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'olympiad' %}" class="dropdown-link">Olimpiada e'lonlari</a></li>
+            <li><a href="{% url 'olympiad' %}" class="dropdown-link">Natijalar</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Flash Messages Notification -->
+  {% if messages %}
+  <div class="container" style="margin-top: 20px;">
+    {% for message in messages %}
+    <div
+      style="background: #dcfce7; color: #166534; padding: 14px 20px; border-radius: 8px; font-weight: 500; border: 1px solid #bbf7d0;">
+      {{ message }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Page Content -->
+  {% block content %}{% endblock %}
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Litsey Haqida</h4>
+          <p style="font-size: 13.5px; line-height: 1.7; color: #cbd5e1;">
+            Mirzo Ulug'bek nomidagi Samarqand Davlat Texnika Universiteti Akademik Litseyi — aniq va tabiiy
+            fanlar bo'yicha chuqurlashtirilgan bilim beruvchi zamonaviy ta'lim maskani.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Tezkor Havolalar</h4>
+          <ul class="footer-links">
+            <li><a href="{% url 'home' %}">Asosiy sahifa</a></li>
+            <li><a href="{% url 'news_list' %}">Yangiliklar va E'lonlar</a></li>
+            <li><a href="{% url 'leadership' %}">Rahbariyat tarkibi</a></li>
+            <li><a href="{% url 'admission' %}">Qabul 2026-2027</a></li>
+            <li><a href="{% url 'olympiad' %}">Fan olimpiadalari</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Davlat Ramzlari</h4>
+          <ul class="footer-links">
+            <li><a href="{% url 'state_symbols_detail' symbol_type='flag' %}">O'zbekiston Bayrog'i</a></li>
+            <li><a href="{% url 'state_symbols_detail' symbol_type='emblem' %}">O'zbekiston Gerbi</a></li>
+            <li><a href="{% url 'state_symbols_detail' symbol_type='anthem' %}">O'zbekiston Madhiyasi</a></li>
+            <li><a href="{% url 'state_symbols_detail' symbol_type='constitution' %}">O'zbekiston Konstitutsiyasi</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Bog'lanish</h4>
+          <p style="font-size: 13.5px; color: #cbd5e1; margin-bottom: 10px;">
+            📍 Samarqand shahri, Dagbitskaya ko'chasi 45-uy
+          </p>
+          <p style="font-size: 13.5px; color: #cbd5e1; margin-bottom: 10px;">
+            📞 +998 66 237-12-34 / +998 66 237-56-78
+          </p>
+          <p style="font-size: 13.5px; color: #cbd5e1;">
+            ✉️ info@samdaqi-litsey.uz
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Mirzo Ulug'bek nomidagi Samarqand Davlat Texnika Universiteti Akademik Litseyi.
+          Barcha huquqlar himoyalangan.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/main.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+
+</html>
