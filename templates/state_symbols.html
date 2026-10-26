@@ -1,25 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load language_tags %}
 
 {% block title %}Davlat Ramzlari — SamDAQI Akademik Litseyi{% endblock %}
 
 {% block content %}
 <div class="container section-padding">
   <div style="margin-bottom: 40px; text-align: center;">
-    <h1 class="section-title" style="display: inline-block;">O'zbekiston Respublikasi Davlat Ramzlari</h1>
+    <h1 class="section-title" style="display: inline-block;">{% ui "O'zbekiston Respublikasi Davlat Ramzlari" %}</h1>
     <p style="color: var(--text-muted); margin-top: 10px;">Vatanimizning muqaddas ramzlari va davlat timsollari</p>
   </div>
 
   <div style="display: grid; grid-template-columns: 280px 1fr; gap: 30px;">
     <!-- Left Navigation Bar for State Symbols -->
     <div style="background: #ffffff; padding: 20px; border-radius: var(--radius); border: 1px solid var(--border-color); height: fit-content;">
-      <h3 style="font-size: 16px; margin-bottom: 16px; color: var(--secondary-color);">Ramzlar menyusi</h3>
+      <h3 style="font-size: 16px; margin-bottom: 16px; color: var(--secondary-color);">{% ui 'Ramzlar menyusi' %}</h3>
       <ul style="list-style: none;">
         {% for symbol in symbols %}
           <li style="margin-bottom: 8px;">
             <a href="{% url 'state_symbols_detail' symbol_type=symbol.symbol_type %}" 
                style="display: block; padding: 12px 16px; border-radius: 8px; font-weight: 500; font-size: 14px; {% if selected_symbol and selected_symbol.symbol_type == symbol.symbol_type %}background: var(--primary-color); color: #ffffff;{% else %}background: var(--bg-light); color: var(--text-dark);{% endif %}">
-              {{ symbol.title }}
+              {% localized symbol 'title' %}
             </a>
           </li>
         {% empty %}
@@ -31,20 +32,21 @@
     <!-- Right Symbol Detail Box -->
     <div style="background: #ffffff; padding: 40px; border-radius: var(--radius); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
       {% if selected_symbol %}
-        <h2 style="font-size: 26px; color: var(--secondary-color); margin-bottom: 16px;">{{ selected_symbol.title }}</h2>
-        <p style="font-size: 16px; font-weight: 500; color: var(--primary-color); margin-bottom: 24px;">{{ selected_symbol.description }}</p>
+        <h2 style="font-size: 26px; color: var(--secondary-color); margin-bottom: 16px;">{% localized selected_symbol 'title' %}</h2>
+        <p style="font-size: 16px; font-weight: 500; color: var(--primary-color); margin-bottom: 24px;">{% localized selected_symbol 'description' %}</p>
 
         {% if selected_symbol.image %}
           <div style="margin-bottom: 30px; text-align: center;">
-            <img src="{{ selected_symbol.image.url }}" alt="{{ selected_symbol.title }}" style="max-height: 250px; margin: 0 auto; border-radius: 12px; box-shadow: var(--shadow-md);">
+            <img src="{{ selected_symbol.image.url }}" alt="{% localized selected_symbol 'title' %}" style="max-height: 250px; margin: 0 auto; border-radius: 12px; box-shadow: var(--shadow-md);">
           </div>
         {% endif %}
 
         <div style="font-size: 15px; line-height: 1.8; color: #334155; background: var(--bg-light); padding: 24px; border-radius: 12px; border-left: 4px solid var(--primary-color);">
-          {{ selected_symbol.content|linebreaks }}
+          {% localized selected_symbol 'content' as localized_content %}
+          {{ localized_content|linebreaks }}
         </div>
       {% else %}
-        <p style="color: var(--text-muted);">Ma'lumot topilmadi.</p>
+        <p style="color: var(--text-muted);">{% ui "Ma'lumot topilmadi." %}</p>
       {% endif %}
     </div>
   </div>

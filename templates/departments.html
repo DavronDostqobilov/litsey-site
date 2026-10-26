@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load language_tags %}
 
 {% block title %}Kafedralar va Yo'nalishlar — SamDAQI Akademik Litseyi{% endblock %}
 
 {% block content %}
 <div class="container section-padding">
   <div style="margin-bottom: 40px;">
-    <h1 class="section-title">Kafedralar va O'quv Yo'nalishlari</h1>
+    <h1 class="section-title">{% ui "Kafedralar va O'quv Yo'nalishlari" %}</h1>
     <p style="color: var(--text-muted); margin-top: 10px;">Litseyimizda faoliyat yuritayotgan kafedralar va yo'nalishlar haqida ma'lumot</p>
   </div>
 
@@ -14,19 +15,19 @@
     {% for dept in departments %}
       <div style="background: #ffffff; border-radius: var(--radius); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); overflow: hidden; padding: 28px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-          <h2 style="font-size: 20px; color: var(--secondary-color);">{{ dept.name }}</h2>
+          <h2 style="font-size: 20px; color: var(--secondary-color);">{% localized dept 'name' %}</h2>
           {% if dept.code %}
             <span style="background: rgba(92, 111, 78, 0.1); color: var(--primary-color); font-weight: 700; padding: 4px 10px; border-radius: 6px; font-size: 12px;">{{ dept.code }}</span>
           {% endif %}
         </div>
 
         <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 20px;">
-          {{ dept.description }}
+          {% localized dept 'description' %}
         </p>
 
         {% if dept.head_name %}
           <div style="border-top: 1px solid var(--border-color); padding-top: 14px; font-size: 13.5px; color: #334155;">
-            👤 <strong>Kafedra mudiri:</strong> {{ dept.head_name }}
+            👤 <strong>Kafedra mudiri:</strong> {% localized dept 'head_name' %}
           </div>
         {% endif %}
       </div>

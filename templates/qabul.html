@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load language_tags %}
 
 {% block title %}Qabul 2025-2026 — SamDTU Akademik Litseyi{% endblock %}
 
@@ -48,14 +49,15 @@
         <!-- Admission Info from DB -->
         {% if admission_info %}
         <div class="qabul-section-box">
-          <h2 class="qabul-section-title">{{ admission_info.title }}</h2>
+          <h2 class="qabul-section-title">{% localized admission_info 'title' %}</h2>
           <div class="qabul-text-content">
-            {{ admission_info.content|linebreaks }}
+            {% localized admission_info 'content' as localized_content %}
+            {{ localized_content|linebreaks }}
           </div>
           {% if admission_info.quota_info %}
           <div class="qabul-quota-box">
             <h4>📊 Kvotalar va yo'nalishlar</h4>
-            <p>{{ admission_info.quota_info }}</p>
+            <p>{% localized admission_info 'quota_info' %}</p>
           </div>
           {% endif %}
         </div>

@@ -1,25 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load language_tags %}
 
 {% block title %}Bog'lanish — SamDAQI Akademik Litseyi{% endblock %}
 
 {% block content %}
 <div class="container section-padding">
   <div style="margin-bottom: 40px; text-align: center;">
-    <h1 class="section-title" style="display: inline-block;">Biz Bilan Bog'lanish</h1>
-    <p style="color: var(--text-muted); margin-top: 10px;">Savol, taklif yoki murojaatlaringiz bo'lsa bizga xabar qoldiring</p>
+    <h1 class="section-title" style="display: inline-block;">{% ui "Biz Bilan Bog'lanish" %}</h1>
+    <p style="color: var(--text-muted); margin-top: 10px;">{% ui 'Savol, taklif yoki murojaatlaringiz bo\'lsa bizga xabar qoldiring' %}</p>
   </div>
 
   <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px;">
     
     <!-- Contact Details -->
     <div style="background: #ffffff; padding: 36px; border-radius: var(--radius); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-      <h3 style="font-size: 20px; color: var(--secondary-color); margin-bottom: 24px;">Aloqa Ma'lumotlari</h3>
+      <h3 style="font-size: 20px; color: var(--secondary-color); margin-bottom: 24px;">{% ui "Aloqa Ma'lumotlari" %}</h3>
       
       <div style="margin-bottom: 24px; display: flex; gap: 16px; align-items: flex-start;">
         <div style="width: 44px; height: 44px; background: rgba(92, 111, 78, 0.1); color: var(--primary-color); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; shrink: 0;">📍</div>
         <div>
-          <h4 style="font-size: 15px; color: var(--secondary-color);">Manzil</h4>
+          <h4 style="font-size: 15px; color: var(--secondary-color);">{% ui 'Manzil' %}</h4>
           <p style="font-size: 14px; color: var(--text-muted);">Samarqand shahri, Dagbitskaya ko'chasi 45-uy (SamDAQI bosh binosi ro'parasi)</p>
         </div>
       </div>
@@ -27,7 +28,7 @@
       <div style="margin-bottom: 24px; display: flex; gap: 16px; align-items: flex-start;">
         <div style="width: 44px; height: 44px; background: rgba(92, 111, 78, 0.1); color: var(--primary-color); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; shrink: 0;">📞</div>
         <div>
-          <h4 style="font-size: 15px; color: var(--secondary-color);">Telefon raqamlar</h4>
+          <h4 style="font-size: 15px; color: var(--secondary-color);">{% ui 'Telefon raqamlar' %}</h4>
           <p style="font-size: 14px; color: var(--text-muted);">+998 66 237-12-34<br>+998 66 237-56-78</p>
         </div>
       </div>
@@ -35,7 +36,7 @@
       <div style="margin-bottom: 24px; display: flex; gap: 16px; align-items: flex-start;">
         <div style="width: 44px; height: 44px; background: rgba(92, 111, 78, 0.1); color: var(--primary-color); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; shrink: 0;">✉️</div>
         <div>
-          <h4 style="font-size: 15px; color: var(--secondary-color);">Elektron Pochta</h4>
+          <h4 style="font-size: 15px; color: var(--secondary-color);">{% ui 'Elektron Pochta' %}</h4>
           <p style="font-size: 14px; color: var(--text-muted);">info@samdaqi-litsey.uz<br>qabul@samdaqi-litsey.uz</p>
         </div>
       </div>
@@ -43,7 +44,7 @@
       <div style="display: flex; gap: 16px; align-items: flex-start;">
         <div style="width: 44px; height: 44px; background: rgba(92, 111, 78, 0.1); color: var(--primary-color); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; shrink: 0;">🕒</div>
         <div>
-          <h4 style="font-size: 15px; color: var(--secondary-color);">Ish tartibi</h4>
+          <h4 style="font-size: 15px; color: var(--secondary-color);">{% ui 'Ish tartibi' %}</h4>
           <p style="font-size: 14px; color: var(--text-muted);">Dushanba - Shanba: 08:30 - 17:30<br>Yakshanba: Dam olish kuni</p>
         </div>
       </div>
@@ -51,38 +52,38 @@
 
     <!-- Contact Form -->
     <div style="background: #ffffff; padding: 36px; border-radius: var(--radius); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-      <h3 style="font-size: 20px; color: var(--secondary-color); margin-bottom: 20px;">Murojaat Yuborish</h3>
+      <h3 style="font-size: 20px; color: var(--secondary-color); margin-bottom: 20px;">{% ui 'Murojaat Yuborish' %}</h3>
       
       <form method="post" action="{% url 'contact' %}">
         {% csrf_token %}
         <div class="form-group">
-          <label class="form-label">Ismingiz *</label>
-          <input type="text" name="name" class="form-control" placeholder="Ism va familiyangiz" required>
+          <label class="form-label">{% ui 'Ismingiz *' %}</label>
+          <input type="text" name="name" class="form-control" placeholder="{% ui 'Ism va familiyangiz' %}" required>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
           <div class="form-group">
-            <label class="form-label">Telefon raqam *</label>
+            <label class="form-label">{% ui 'Telefon raqam *' %}</label>
             <input type="text" name="phone" class="form-control" placeholder="+998 90 123-45-67" required>
           </div>
           <div class="form-group">
-            <label class="form-label">E-pochta (ixtiyoriy)</label>
+            <label class="form-label">{% ui 'E-pochta (ixtiyoriy)' %}</label>
             <input type="email" name="email" class="form-control" placeholder="example@mail.uz">
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Mavzu</label>
-          <input type="text" name="subject" class="form-control" placeholder="Murojaat mavzusi">
+          <label class="form-label">{% ui 'Mavzu' %}</label>
+          <input type="text" name="subject" class="form-control" placeholder="{% ui 'Murojaat mavzusi' %}">
         </div>
 
         <div class="form-group">
-          <label class="form-label">Xabar matni *</label>
-          <textarea name="message" rows="5" class="form-control" placeholder="Xabaringizni shu yerga yozing..." required></textarea>
+          <label class="form-label">{% ui 'Xabar matni *' %}</label>
+          <textarea name="message" rows="5" class="form-control" placeholder="{% ui 'Xabaringizni shu yerga yozing...' %}" required></textarea>
         </div>
 
         <button type="submit" class="btn-primary" style="width: 100%; padding: 14px;">
-          Xabarni Yuborish &rarr;
+          {% ui 'Xabarni Yuborish &rarr;' %}
         </button>
       </form>
     </div>

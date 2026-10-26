@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load language_tags %}
 
 {% block title %}Rahbariyat — SamDAQI Akademik Litseyi{% endblock %}
 
 {% block content %}
 <div class="container section-padding">
   <div style="margin-bottom: 40px; text-align: center;">
-    <h1 class="section-title" style="display: inline-block;">Litsey Rahbariyati</h1>
+    <h1 class="section-title" style="display: inline-block;">{% ui 'Litsey Rahbariyati' %}</h1>
     <p style="color: var(--text-muted); margin-top: 10px; max-width: 600px; margin-left: auto; margin-right: auto;">
       Mirzo Ulug'bek nomidagi Samarqand Davlat Arxitektura-Qurilish Universiteti Akademik Litseyining rahbariyati va kafedra mudirlari
     </p>
@@ -21,9 +22,9 @@
           <img src="{% static 'images/logo.png' %}" alt="{{ leader.full_name }}" class="leader-photo" style="width: 140px; height: 140px;">
         {% endif %}
         <h3 class="leader-name" style="font-size: 19px;">{{ leader.full_name }}</h3>
-        <div class="leader-position" style="font-size: 14px;">{{ leader.position }}</div>
+        <div class="leader-position" style="font-size: 14px;">{% localized leader 'position' %}</div>
         {% if leader.degree %}
-          <div style="font-size: 12px; color: var(--accent-gold); font-weight: 600; margin-bottom: 12px;">{{ leader.degree }}</div>
+          <div style="font-size: 12px; color: var(--accent-gold); font-weight: 600; margin-bottom: 12px;">{% localized leader 'degree' %}</div>
         {% endif %}
 
         <div class="leader-details" style="text-align: left; background: var(--bg-light); padding: 14px; border-radius: 8px; margin-top: 16px;">
@@ -31,12 +32,12 @@
           {% if leader.email %}
             <p style="margin-bottom: 6px;">✉️ <strong>Email:</strong> {{ leader.email }}</p>
           {% endif %}
-          <p>🕒 <strong>Qabul kunlari:</strong> {{ leader.reception_hours }}</p>
+          <p>🕒 <strong>Qabul kunlari:</strong> {% localized leader 'reception_hours' %}</p>
         </div>
 
         {% if leader.bio %}
           <p style="font-size: 13px; color: var(--text-muted); margin-top: 14px; text-align: left; line-height: 1.5;">
-            {{ leader.bio }}
+            {% localized leader 'bio' %}
           </p>
         {% endif %}
       </div>

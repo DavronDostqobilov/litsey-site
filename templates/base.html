@@ -1,6 +1,7 @@
 {% load static %}
+{% load language_tags %}
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="{{ LANGUAGE_CODE|default:'uz' }}">
 
 <head>
   <meta charset="UTF-8">
@@ -8,7 +9,7 @@
   <title>{% block title %}SamDTU Akademik Litseyi{% endblock %}</title>
   <meta name="description"
     content="Mirzo Ulug'bek nomidagi Samarqand Davlat Texnika Universiteti Akademik Litseyi rasmiy sayti">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=3">
   <link rel="icon" href="{% static 'images/logo.jpg' %}" type="image/jpg">
   {% block extra_head %}{% endblock %}
 </head>
@@ -32,62 +33,62 @@
         <li class="nav-item">
           <a href="{% url 'home' %}"
             class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-            Asosiy
+            {% ui 'Asosiy' %}
           </a>
         </li>
 
         <li class="nav-item">
           <a href="#" class="nav-link">
-            Litsey va ta'lim
+            {% ui "Litsey va ta'lim" %}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M19 9l-7 7-7-7" />
             </svg>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="{% url 'leadership' %}" class="dropdown-link">Rahbariyat</a></li>
-            <li><a href="{% url 'departments' %}" class="dropdown-link">Kafedralar va Yo'nalishlar</a></li>
-            <li><a href="{% url 'admission' %}" class="dropdown-link">Litsey Tarixi va Nizomi</a></li>
+            <li><a href="{% url 'leadership' %}" class="dropdown-link">{% ui 'Rahbariyat' %}</a></li>
+            <li><a href="{% url 'departments' %}" class="dropdown-link">{% ui "Kafedralar va Yo'nalishlar" %}</a></li>
+            <li><a href="{% url 'admission' %}" class="dropdown-link">{% ui 'Litsey Tarixi va Nizomi' %}</a></li>
           </ul>
         </li>
 
         <li class="nav-item">
           <a href="#" class="nav-link">
-            O'quvchilar uchun
+            {% ui "O'quvchilar uchun" %}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M19 9l-7 7-7-7" />
             </svg>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="{% url 'olympiad' %}" class="dropdown-link">Dars va Imtihon jadvali</a></li>
-            <li><a href="{% url 'olympiad' %}" class="dropdown-link">To'garaklar va Klubatlar</a></li>
-            <li><a href="{% url 'olympiad' %}" class="dropdown-link">Elektron Kutubxona</a></li>
+            <li><a href="{% url 'olympiad' %}" class="dropdown-link">{% ui 'Dars va Imtihon jadvali' %}</a></li>
+            <li><a href="{% url 'olympiad' %}" class="dropdown-link">{% ui "To'garaklar va Klubatlar" %}</a></li>
+            <li><a href="{% url 'olympiad' %}" class="dropdown-link">{% ui 'Elektron Kutubxona' %}</a></li>
           </ul>
         </li>
 
         <li class="nav-item">
           <a href="{% url 'news_list' %}"
             class="nav-link {% if request.resolver_match.url_name == 'news_list' or request.resolver_match.url_name == 'news_detail' %}active{% endif %}">
-            Yangiliklar
+            {% ui 'Yangiliklar' %}
           </a>
         </li>
 
         <li class="nav-item">
           <a href="#" class="nav-link">
-            Ma'lumotlar
+            {% ui "Ma'lumotlar" %}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M19 9l-7 7-7-7" />
             </svg>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="{% url 'home' %}#stats" class="dropdown-link">Statistika va Yutuqlar</a></li>
-            <li><a href="{% url 'contact' %}" class="dropdown-link">Ochiq ma'lumotlar</a></li>
+            <li><a href="{% url 'home' %}#stats" class="dropdown-link">{% ui 'Statistika va Yutuqlar' %}</a></li>
+            <li><a href="{% url 'contact' %}" class="dropdown-link">{% ui "Ochiq ma'lumotlar" %}</a></li>
           </ul>
         </li>
 
         <li class="nav-item">
           <a href="{% url 'state_symbols' %}"
             class="nav-link {% if request.resolver_match.url_name == 'state_symbols' %}active{% endif %}">
-            Davlat ramzlari
+            {% ui 'Davlat ramzlari' %}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M19 9l-7 7-7-7" />
             </svg>
@@ -107,24 +108,36 @@
         <li class="nav-item">
           <a href="{% url 'qabul' %}"
             class="nav-link {% if request.resolver_match.url_name == 'qabul' %}active{% endif %}">
-            Qabul 2026-2027
+            {% ui 'Qabul 2026-2027' %}
           </a>
         </li>
 
         <li class="nav-item">
           <a href="{% url 'olympiad' %}"
             class="nav-link {% if request.resolver_match.url_name == 'olympiad' %}active{% endif %}">
-            Fan olimpiadalari
+            {% ui 'Fan olimpiadalari' %}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M19 9l-7 7-7-7" />
             </svg>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="{% url 'olympiad' %}" class="dropdown-link">Olimpiada e'lonlari</a></li>
-            <li><a href="{% url 'olympiad' %}" class="dropdown-link">Natijalar</a></li>
+            <li><a href="{% url 'olympiad' %}" class="dropdown-link">{% ui "Olimpiada e'lonlari" %}</a></li>
+            <li><a href="{% url 'olympiad' %}" class="dropdown-link">{% ui 'Natijalar' %}</a></li>
           </ul>
         </li>
       </ul>
+
+      <div class="language-picker">
+        <form action="{% url 'set_language' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.get_full_path }}">
+          <select name="language" aria-label="Tilni tanlang" title="Tilni tanlang" onchange="this.form.submit()">
+            <option value="uz" {% if LANGUAGE_CODE == 'uz' %}selected{% endif %}>UZ</option>
+            <option value="ru" {% if LANGUAGE_CODE == 'ru' %}selected{% endif %}>RU</option>
+            <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>EN</option>
+          </select>
+        </form>
+      </div>
     </div>
   </header>
 
@@ -148,7 +161,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
-          <h4>Litsey Haqida</h4>
+          <h4>{% ui 'Litsey Haqida' %}</h4>
           <p style="font-size: 13.5px; line-height: 1.7; color: #cbd5e1;">
             Mirzo Ulug'bek nomidagi Samarqand Davlat Texnika Universiteti Akademik Litseyi — aniq va tabiiy
             fanlar bo'yicha chuqurlashtirilgan bilim beruvchi zamonaviy ta'lim maskani.
@@ -156,13 +169,13 @@
         </div>
 
         <div class="footer-col">
-          <h4>Tezkor Havolalar</h4>
+          <h4>{% ui 'Tezkor Havolalar' %}</h4>
           <ul class="footer-links">
-            <li><a href="{% url 'home' %}">Asosiy sahifa</a></li>
-            <li><a href="{% url 'news_list' %}">Yangiliklar va E'lonlar</a></li>
-            <li><a href="{% url 'leadership' %}">Rahbariyat tarkibi</a></li>
+            <li><a href="{% url 'home' %}">{% ui 'Asosiy sahifa' %}</a></li>
+            <li><a href="{% url 'news_list' %}">{% ui "Yangiliklar va E'lonlar" %}</a></li>
+            <li><a href="{% url 'leadership' %}">{% ui 'Rahbariyat tarkibi' %}</a></li>
             <li><a href="{% url 'admission' %}">Qabul 2026-2027</a></li>
-            <li><a href="{% url 'olympiad' %}">Fan olimpiadalari</a></li>
+            <li><a href="{% url 'olympiad' %}">{% ui 'Fan olimpiadalari' %}</a></li>
           </ul>
         </div>
 
@@ -178,7 +191,7 @@
         </div>
 
         <div class="footer-col">
-          <h4>Bog'lanish</h4>
+          <h4>{% ui "Bog'lanish" %}</h4>
           <p style="font-size: 13.5px; color: #cbd5e1; margin-bottom: 10px;">
             📍 Samarqand shahri, Dagbitskaya ko'chasi 45-uy
           </p>
@@ -193,7 +206,7 @@
 
       <div class="footer-bottom">
         <p>&copy; 2026 Mirzo Ulug'bek nomidagi Samarqand Davlat Texnika Universiteti Akademik Litseyi.
-          Barcha huquqlar himoyalangan.</p>
+          {% ui 'Barcha huquqlar himoyalangan.' %}</p>
       </div>
     </div>
   </footer>
